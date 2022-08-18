@@ -4,14 +4,14 @@ const customTheme: any = {
     colors: {
         white: "#FFFFFF",
         accent: "#4A56E2",
-        green: "#24bbA7",
+        green: "#663517",
         purpure: "#FF6596",
         text: "#000000",
         helperText: "#BDBDBD",
         iconColor: "#E0E0E0",
         fone: "#E5E5E5",
         error: "#97000099",
-        hoverGreen: "#1cad8e",
+        hoverGreen: "#3a1401",
         hoverWhite: "#eef",
         category: {
             car: "#FD9498",
