@@ -4,7 +4,7 @@ const customTheme: any = {
     colors: {
         white: "#FFFFFF",
         accent: "#4A56E2",
-        green: "#24CCA7",
+        green: "#24bbA7",
         purpure: "#FF6596",
         text: "#000000",
         helperText: "#BDBDBD",
@@ -27,4 +27,4 @@ const customTheme: any = {
     },
 };
 
-export const materialTheme = createTheme(customTheme);
+export const materialTheme: any = createTheme(customTheme);

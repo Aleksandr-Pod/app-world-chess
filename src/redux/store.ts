@@ -6,7 +6,7 @@ import { curentUser } from "./sliceUserName";
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
 
 const tokenPersistConfig = {
-    key: "root",
+    key: "chessWorld",
     storage,
     whitelist: ["token"],
 };
