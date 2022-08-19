@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import "./App.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useIsActivTokenQuery } from "redux/authAPI";
 import { isUserName } from "redux/sliceUserName";
@@ -9,6 +8,7 @@ import PrivateRoute from "components/privateRoute/PrivateRoute";
 import PublicRoute from "components/publicRoute/PublicRoute";
 import Statistics from "components/statistics/Statistics";
 import HomeTab from "components/homeTab/HomeTab";
+import GameBoard from "components/gameBoard/GameBoard";
 
 const LoginPage = React.lazy(() => import("views/loginPage/LoginPage"));
 const RegisterPage = React.lazy(() => import("views/registerPage/RegisterPage"));
@@ -55,10 +55,10 @@ function App() {
                             }
                         />
                         <Route
-                            path="/currency"
+                            path="/game"
                             element={
                                 <PrivateRoute>
-                                    <Statistics />
+                                    <GameBoard />
                                 </PrivateRoute>
                             }
                         />
