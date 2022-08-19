@@ -40,7 +40,7 @@ const RegisterForm = () => {
                     return;
                 }
                 if (respons.data.name) {
-                    toast.success("Check your email for verification!");
+                    toast.success("User created! Login please...");
                     navigate("/login", { replace: true });
                 }
             } catch (error) {
