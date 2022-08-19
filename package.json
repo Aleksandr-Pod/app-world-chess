@@ -27,6 +27,7 @@
         "@reduxjs/toolkit": "^1.8.3",
         "spinners-react": "^1.0.7",
         "react-redux": "^8.0.2",
+        "redux-persist": "^6.0.0",
         "react-router-dom": "^6.3.0"
     },
     "scripts": {
