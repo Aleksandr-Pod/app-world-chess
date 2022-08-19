@@ -18,6 +18,7 @@ const GameBoard = () => {
         };
         createSquare();
         console.log(board);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return (
         <BoxGame>
