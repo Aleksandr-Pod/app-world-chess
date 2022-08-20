@@ -55,3 +55,5 @@ export const Square = styled.div`
     background-color: ${({ color }: any) => (color === "black" ? "#9b7858" : "#fff")};
     color: ${({ color }: any) => (color === "black" ? "#f0eae5" : "#252525")};
 `;
+
+export const FigureImpg = styled.img``;
