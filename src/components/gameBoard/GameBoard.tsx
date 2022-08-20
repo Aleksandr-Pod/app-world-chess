@@ -37,9 +37,6 @@ const GameBoard = () => {
             return prevSt;
         });
         setActivFigure({ _id: 0, figure: "" });
-
-        // console.log("Event Type", e.type, index);
-        // console.log("++", e.currentTarget);
     };
 
     // useEffect(() => {
@@ -49,23 +46,21 @@ const GameBoard = () => {
 
     return (
         <BoxGame>
-            {/* <Media
+            <Media
                 query="(max-width: 767px)"
                 render={() => (
                     <ChessBoardMobi>
-                        <Draggable>
-                            {board.map((element, index, array) => {
-                                const clr = ((index % 8) + Math.floor(index / 8)) % 2 ? "black" : "wite";
-                                return (
-                                    <Square key={index} color={clr}>
-                                        <FigureImpg src={showFigure(index, element.figure)} alt="" />
-                                    </Square>
-                                );
-                            })}
-                        </Draggable>
+                        {board.map((element, index, array) => {
+                            const clr = ((index % 8) + Math.floor(index / 8)) % 2 ? "black" : "wite";
+                            return (
+                                <Square key={index} color={clr}>
+                                    <FigureImpg src={showFigure(index, element.figure)} alt="" />
+                                </Square>
+                            );
+                        })}
                     </ChessBoardMobi>
                 )}
-            /> */}
+            />
             <Media
                 query="(min-width: 768px)"
                 render={() => (
