@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialUser = "";
+const initialUser = "fgg";
 
 export const curentUser = createSlice({
     name: "user",

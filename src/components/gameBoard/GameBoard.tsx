@@ -53,7 +53,7 @@ const GameBoard = () => {
                         {board.map((element, index, array) => {
                             const clr = ((index % 8) + Math.floor(index / 8)) % 2 ? "black" : "wite";
                             return (
-                                <Square key={index} color={clr}>
+                                <Square onClick={(e: any) => eventHandler(e, index)} key={index} color={clr}>
                                     <FigureImpg src={showFigure(index, element.figure)} alt="" />
                                 </Square>
                             );
