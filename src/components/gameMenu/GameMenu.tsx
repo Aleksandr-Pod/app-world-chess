@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BackgroundGameMenu, ButtonTimeGame, TimeControl } from "./GameMenu.styled";
 import { ReadyState } from "react-use-websocket";
 import PropTypes from "prop-types";
@@ -24,18 +24,19 @@ const GameMenu: React.FC<PropTypes> = ({ connect }) => {
     const gameRegim = () => {
         setTypeGame((prev) => (prev === "standart" ? "fisher" : "standart"));
     };
+    useEffect(() => {
+        console.log(modal);
+    }, [modal]);
 
-    const handleClickSendMessage = useCallback(
-        (timeControl: number, timePluse: number) => {
-            try {
-                sendMessage(JSON.stringify(reqWsStartGame(timeControl, timePluse, typeGame, token, color, idWs)));
-                toast.info(`Finding game ${timeControl} + ${timePluse} min, wite please...`);
-            } catch (error) {
-                toast.error("error");
-            }
-        },
-        [color, idWs, sendMessage, token, typeGame]
-    );
+    const handleClickSendMessage = async (timeControl: number, timePluse: number) => {
+        setModal(true);
+        try {
+            sendMessage(JSON.stringify(reqWsStartGame(timeControl, timePluse, typeGame, token, color, idWs)));
+            toast.info(`Finding game ${timeControl} + ${timePluse} min, wite please...`);
+        } catch (error) {
+            toast.error("error");
+        }
+    };
 
     return (
         <BackgroundGameMenu>
@@ -52,85 +53,31 @@ const GameMenu: React.FC<PropTypes> = ({ connect }) => {
                     ></ModalFindGame>
                 </Modal>
             ) : null}
-            <ButtonTimeGame
-                onClick={() => {
-                    handleClickSendMessage(1, 0);
-                    setModal(true);
-                }}
-                disabled={readyState !== ReadyState.OPEN}
-            >
+            <ButtonTimeGame onClick={() => handleClickSendMessage(1, 0)} disabled={readyState !== ReadyState.OPEN}>
                 find new game <TimeControl>1min</TimeControl>
             </ButtonTimeGame>
-            <ButtonTimeGame
-                onClick={() => {
-                    handleClickSendMessage(3, 0);
-                    setModal(true);
-                }}
-                disabled={readyState !== ReadyState.OPEN}
-            >
+            <ButtonTimeGame onClick={() => handleClickSendMessage(3, 0)} disabled={readyState !== ReadyState.OPEN}>
                 find new game <TimeControl>3min</TimeControl>
             </ButtonTimeGame>
-            <ButtonTimeGame
-                onClick={() => {
-                    handleClickSendMessage(5, 0);
-                    setModal(true);
-                }}
-                disabled={readyState !== ReadyState.OPEN}
-            >
+            <ButtonTimeGame onClick={() => handleClickSendMessage(5, 0)} disabled={readyState !== ReadyState.OPEN}>
                 find new game <TimeControl>5min</TimeControl>
             </ButtonTimeGame>
-            <ButtonTimeGame
-                onClick={() => {
-                    handleClickSendMessage(1, 1);
-                    setModal(true);
-                }}
-                disabled={readyState !== ReadyState.OPEN}
-            >
+            <ButtonTimeGame onClick={() => handleClickSendMessage(1, 1)} disabled={readyState !== ReadyState.OPEN}>
                 find new game <TimeControl>1min+1s</TimeControl>
             </ButtonTimeGame>
-            <ButtonTimeGame
-                onClick={() => {
-                    handleClickSendMessage(3, 2);
-                    setModal(true);
-                }}
-                disabled={readyState !== ReadyState.OPEN}
-            >
+            <ButtonTimeGame onClick={() => handleClickSendMessage(3, 2)} disabled={readyState !== ReadyState.OPEN}>
                 find new game <TimeControl>3min+2s</TimeControl>
             </ButtonTimeGame>
-            <ButtonTimeGame
-                onClick={() => {
-                    handleClickSendMessage(5, 3);
-                    setModal(true);
-                }}
-                disabled={readyState !== ReadyState.OPEN}
-            >
+            <ButtonTimeGame onClick={() => handleClickSendMessage(5, 3)} disabled={readyState !== ReadyState.OPEN}>
                 find new game <TimeControl>5min+3s</TimeControl>
             </ButtonTimeGame>
-            <ButtonTimeGame
-                onClick={() => {
-                    handleClickSendMessage(10, 5);
-                    setModal(true);
-                }}
-                disabled={readyState !== ReadyState.OPEN}
-            >
+            <ButtonTimeGame onClick={() => handleClickSendMessage(10, 5)} disabled={readyState !== ReadyState.OPEN}>
                 find new game <TimeControl>10min+5s</TimeControl>
             </ButtonTimeGame>
-            <ButtonTimeGame
-                onClick={() => {
-                    handleClickSendMessage(15, 10);
-                    setModal(true);
-                }}
-                disabled={readyState !== ReadyState.OPEN}
-            >
+            <ButtonTimeGame onClick={() => handleClickSendMessage(15, 10)} disabled={readyState !== ReadyState.OPEN}>
                 find new game <TimeControl>15min+10s</TimeControl>
             </ButtonTimeGame>
-            <ButtonTimeGame
-                onClick={() => {
-                    handleClickSendMessage(30, 30);
-                    setModal(true);
-                }}
-                disabled={readyState !== ReadyState.OPEN}
-            >
+            <ButtonTimeGame onClick={() => handleClickSendMessage(30, 30)} disabled={readyState !== ReadyState.OPEN}>
                 find new game <TimeControl>30min+30s</TimeControl>
             </ButtonTimeGame>
             <span>
