@@ -11,10 +11,10 @@ export const GeneralButton = styled(Button)(
     height: 50px;
     margin-bottom: 20px;
     color: ${bts === "link" ? theme.colors.accent : theme.colors.white};
-    border-color:${bts === "link" ? theme.colors.accent : theme.colors.green};
-    background-color: ${bts === "link" ? theme.colors.white : theme.colors.green};
+    border-color:${bts === "link" ? theme.colors.accent : theme.colors.accent};
+    background-color: ${bts === "link" ? theme.colors.white : theme.colors.accent};
      :hover {
-        background-color: ${bts === "link" ? theme.colors.hoverWhite : theme.colors.hoverGreen};
+        background-color: ${bts === "link" ? theme.colors.hoverWhite : theme.colors.hoverAccent};
     }
 `
 );

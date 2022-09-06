@@ -14,7 +14,7 @@ export const BackgroundAppBarMobi = styled.div`
 
 export const BackgroundAppBarPC = styled.div`
     background-color: #b6c0d6;
-    justify-content: space-between;
+    // justify-content: space-between;
     align-items: center;
     display: flex;
     flex-direction: column;

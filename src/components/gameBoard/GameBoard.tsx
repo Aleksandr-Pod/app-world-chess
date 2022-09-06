@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import Media from "react-media";
 import { ChessBoardMobi, ChessBoardPC, BoxGame, FigureImpg } from "./GameBoard.styled";
 import HelperBoardMobi from "components/helperBoard/HelperBoardMobi";
@@ -6,14 +7,21 @@ import HelperBoardPC from "components/helperBoard/HelperBoardPC";
 import { Square } from "./GameBoard.styled";
 import showFigure from "helpers/showFigure";
 
-const GameBoard = () => {
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+type PropTypes = {
+    connect: { sendMessage: any; readyState: any; lastMessage: any };
+};
+
+const GameBoard: React.FC<PropTypes> = ({ connect }) => {
+    // const { sendMessage, lastMessage } = connect;
     const [board, setBoard] = useState([{ _id: 1, figure: "" }]);
     const [activFigure, setActivFigure] = useState({ _id: 1, figure: "" });
+    const startPosition = "rnbqkbnrpppppppp88888888888888888888888888888888PPPPPPPPRNBQKBNR";
 
     useEffect(() => {
-        const startPosition = "rnbqkbnrpppppppp88888888888888888888888888888888PPPPPPPPRNBQKBNR";
         const startPositionArr = startPosition.split("");
         let boardEmpty: any = [];
+        // расставим фигуры по доске
         const createSquare = () => {
             for (let cord = 0; cord < 64; cord++) {
                 boardEmpty.push({ _id: cord, figure: startPositionArr[cord] });
@@ -53,7 +61,7 @@ const GameBoard = () => {
                         {board.map((element, index, array) => {
                             const clr = ((index % 8) + Math.floor(index / 8)) % 2 ? "black" : "wite";
                             return (
-                                <Square key={index} color={clr}>
+                                <Square onClick={(e: any) => eventHandler(e, index)} key={index} color={clr}>
                                     <FigureImpg src={showFigure(index, element.figure)} alt="" />
                                 </Square>
                             );

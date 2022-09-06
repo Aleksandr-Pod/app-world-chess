@@ -2,19 +2,23 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 import { authApi } from "./authAPI";
 import { curentToken } from "./sliceToken";
+import { curentWsID } from "./sliceWsID";
+import { colorGame } from "./sliceColor";
 import { curentUser } from "./sliceUserName";
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
 
 const tokenPersistConfig = {
     key: "chessWorld",
     storage,
-    whitelist: ["token"],
+    whitelist: ["token", "colorGame"],
 };
 
 const rootReduser = combineReducers({
     [authApi.reducerPath]: authApi.reducer,
     token: curentToken.reducer,
     userName: curentUser.reducer,
+    colorGame: colorGame.reducer,
+    WsID: curentWsID.reducer,
 });
 
 const persistedReducer = persistReducer(tokenPersistConfig, rootReduser);
