@@ -3,15 +3,16 @@ import { createTheme } from "@mui/material";
 const customTheme: any = {
     colors: {
         white: "#FFFFFF",
-        accent: "#4A56E2",
-        green: "#663517",
+        accent: "#663517",
+        hoverAccent: "#3a1401",
+        green: "#33a8a8",
         purpure: "#FF6596",
         text: "#000000",
         helperText: "#BDBDBD",
         iconColor: "#E0E0E0",
         fone: "#E5E5E5",
         error: "#97000099",
-        hoverGreen: "#3a1401",
+        hoverGreen: "#229697",
         hoverWhite: "#eef",
         category: {
             car: "#FD9498",

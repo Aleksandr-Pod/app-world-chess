@@ -9,6 +9,10 @@ export const Greeeting = styled.span`
     line-height: 27px;
     color: #bdbdbd;
     margin-right: 12px;
+    cursor: pointer;
+    &:hover {
+        transform: scale(1.1);
+    }
     @media (min-width: 768px) {
         &:after {
             content: "|";
@@ -16,6 +20,19 @@ export const Greeeting = styled.span`
             height: 30px;
             margin-left: 12px;
         }
+    }
+`;
+
+export const GreeetingPC = styled.span`
+    display: block;
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px;
+    color: #002a69;
+    margin-right: 12px;
+    margin-top: 30px;
+    @media (min-width: 768px) {
     }
 `;
 
@@ -38,8 +55,9 @@ export const LogOutBtn = styled.div`
     @media (min-width: 768px) {
         padding-top: 28px;
         padding-bottom: 28px;
+        color: #464646;
         &:hover {
-            color: #787878;
+            color: #531a1a;
         }
     }
 `;

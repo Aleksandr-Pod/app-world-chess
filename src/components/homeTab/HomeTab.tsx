@@ -1,12 +1,14 @@
 // import { useState } from "react";
 import GameMenu from "components/gameMenu/GameMenu";
-
-const HomeTab = () => {
-    // const [modal, setModal] = useState(false);
-
+import PropTypes from "prop-types";
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+type PropTypes = {
+    connect: { sendMessage: any; readyState: any; lastMessage: any };
+};
+const HomeTab: React.FC<PropTypes> = ({ connect }) => {
     return (
         <div style={{ position: "relative" }}>
-            <GameMenu />
+            <GameMenu connect={connect} />
         </div>
     );
 };
