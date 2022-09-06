@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useIsActivTokenQuery } from "redux/authAPI";
@@ -6,11 +6,13 @@ import { isUserName } from "redux/sliceUserName";
 import { newWsID } from "redux/sliceWsID";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import Layout from "layouts/Layout";
+import { toast } from "react-toastify";
 import PrivateRoute from "components/privateRoute/PrivateRoute";
 import PublicRoute from "components/publicRoute/PublicRoute";
 import Statistics from "components/statistics/Statistics";
 import HomeTab from "components/homeTab/HomeTab";
 import GameBoard from "components/gameBoard/GameBoard";
+import { reqWsStartApp } from "helpers/requestWs";
 const socketUrl = "ws://localhost:5000/";
 
 const LoginPage = React.lazy(() => import("views/loginPage/LoginPage"));
@@ -18,11 +20,13 @@ const RegisterPage = React.lazy(() => import("views/registerPage/RegisterPage"))
 const DashboardPage = React.lazy(() => import("views/dashboardPage/DashboardPage"));
 
 function App() {
-    const token = useSelector((state: any) => state.token);
+    const [curentG, setCurentG] = useState(false);
     const color = useSelector((state: any) => state.colorGame);
+    const token = useSelector((state: any) => state.token);
+    const userName: string = useSelector((state: any) => state.userName);
     const dispatch = useDispatch();
     const { data: auth } = useIsActivTokenQuery("", { skip: !token }); // const [messageHistory, setMessageHistory] = useState([]);
-    const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl);
+    const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl); // єто вызывает труднсти с делегированием логики так как нехочеться обрывать подключение попробуем пропсами отправлять стейт в доску
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const connectionStatus = {
@@ -38,18 +42,31 @@ function App() {
             return;
         }
         dispatch(isUserName(auth.user.name));
-        if (lastMessage !== null) {
-            const data = JSON.parse(lastMessage.data);
-            console.log(data);
-            if (data.idWs) {
-                dispatch(newWsID(data.idWs));
+    }, [auth, dispatch]);
+
+    useEffect(() => {
+        if (userName.length > 1) {
+            if (lastMessage !== null) {
+                const data = JSON.parse(lastMessage.data);
+                const { mesRes } = data;
+                console.log(mesRes.message);
+                // если это первое подключение апп к серверу проверим не идет ли партия у игрока отправим метку старт на бек
+                if (mesRes.message === "ws connect") {
+                    dispatch(newWsID(mesRes.idWs));
+                    sendMessage(JSON.stringify(reqWsStartApp(mesRes.idWs, token, color)));
+                    return;
+                }
+                if (mesRes.message === "game") {
+                    // если бек нашел какую то партию в базе то сообщим об этом юзеру и перенаправим его на страницу с доской
+                    setCurentG(true);
+                    toast.info(`We find curent game!${mesRes.idGame}`);
+                    return;
+                }
+                // если нет текущей игры ничего не происходит
+                console.log("no find curent game...");
             }
-            if (data?.game?.id) {
-                console.log("find curent game!");
-            }
-            sendMessage(JSON.stringify({ idWs: data.idWs, token, color, event: "start" }));
         }
-    }, [auth, color, dispatch, lastMessage, sendMessage, token]);
+    }, [dispatch, lastMessage, sendMessage, token, userName, setCurentG, color]);
 
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL + "/"}>
@@ -59,7 +76,7 @@ function App() {
                         path="/"
                         element={
                             <PrivateRoute>
-                                <DashboardPage />
+                                <DashboardPage curentG={curentG} />
                             </PrivateRoute>
                         }
                     >
@@ -83,7 +100,7 @@ function App() {
                             path="/game"
                             element={
                                 <PrivateRoute>
-                                    <GameBoard />
+                                    <GameBoard connect={{ sendMessage, readyState, lastMessage }} />
                                 </PrivateRoute>
                             }
                         />

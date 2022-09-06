@@ -6,8 +6,6 @@ type PropTypes = {
     connect: { sendMessage: any; readyState: any; lastMessage: any };
 };
 const HomeTab: React.FC<PropTypes> = ({ connect }) => {
-    // const [modal, setModal] = useState(false);
-
     return (
         <div style={{ position: "relative" }}>
             <GameMenu connect={connect} />
