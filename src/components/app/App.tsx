@@ -13,7 +13,7 @@ import Statistics from "components/statistics/Statistics";
 import HomeTab from "components/homeTab/HomeTab";
 import GameBoard from "components/gameBoard/GameBoard";
 import { reqWsStartApp } from "helpers/requestWs";
-const socketUrl = "ws://localhost:5000/";
+import { socketUrl } from "redux/testURL";
 
 const LoginPage = React.lazy(() => import("views/loginPage/LoginPage"));
 const RegisterPage = React.lazy(() => import("views/registerPage/RegisterPage"));
