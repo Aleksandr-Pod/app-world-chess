@@ -49,7 +49,7 @@ function App() {
             if (lastMessage !== null) {
                 const data = JSON.parse(lastMessage.data);
                 const { mesRes } = data;
-                console.log(mesRes.message);
+                console.log("last WS message:", mesRes);
                 // если это первое подключение апп к серверу проверим не идет ли партия у игрока отправим метку старт на бек
                 if (mesRes.message === "ws connect") {
                     dispatch(newWsID(mesRes.idWs));
