@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BackgroundGameMenu, ButtonTimeGame, TimeControl } from "./GameMenu.styled";
 import { ReadyState } from "react-use-websocket";
 import PropTypes from "prop-types";
@@ -24,9 +24,6 @@ const GameMenu: React.FC<PropTypes> = ({ connect }) => {
     const gameRegim = () => {
         setTypeGame((prev) => (prev === "standart" ? "fisher" : "standart"));
     };
-    useEffect(() => {
-        console.log(modal);
-    }, [modal]);
 
     const handleClickSendMessage = async (timeControl: number, timePluse: number) => {
         setModal(true);
