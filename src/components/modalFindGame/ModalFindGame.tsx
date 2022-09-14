@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react"; так делать уже не обязательно
 import { ButtonWrapper, ModalTitle, Container, TitleAccent } from "./ModalFindGame.styled";
 import { GeneralButton } from "components/generalButton/GeneralButton.styled";
 import { SpinnerDotted } from "spinners-react";

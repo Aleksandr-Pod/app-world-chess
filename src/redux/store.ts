@@ -5,6 +5,7 @@ import { curentToken } from "./sliceToken";
 import { curentWsID } from "./sliceWsID";
 import { colorGame } from "./sliceColor";
 import { curentUser } from "./sliceUserName";
+import { activeGame } from "./gameIdx";
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
 
 const tokenPersistConfig = {
@@ -19,6 +20,7 @@ const rootReduser = combineReducers({
     userName: curentUser.reducer,
     colorGame: colorGame.reducer,
     WsID: curentWsID.reducer,
+    activeGame: activeGame.reducer
 });
 
 const persistedReducer = persistReducer(tokenPersistConfig, rootReduser);

@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import CloseIcon from "@mui/icons-material/Close";
 import { Overlay, ModalWindow, ModalCloseBtn } from "./Modal.styled";
+
 const element: HTMLElement = document.getElementById("modal")!;
 
 const Modal = ({ onModalClose, children }: any) => {
-    const mouseDownClouse: any = (e: any) => {
+    const mouseDownClose: any = (e: any) => {
         if (e.target === e.currentTarget) {
             onModalClose();
         }
@@ -24,7 +25,7 @@ const Modal = ({ onModalClose, children }: any) => {
         };
     }, [onModalClose]);
     return createPortal(
-        <Overlay onClick={mouseDownClouse}>
+        <Overlay onClick={mouseDownClose}>
             <ModalWindow>
                 <ModalCloseBtn onClick={onModalClose}>
                     <CloseIcon />

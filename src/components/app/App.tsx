@@ -4,7 +4,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { useIsActivTokenQuery } from "redux/authAPI";
 import { isUserName } from "redux/sliceUserName";
 import { newWsID } from "redux/sliceWsID";
+import { socketUrl } from "redux/testURL";
+import { setActiveGameIdx, setUserInGame } from "redux/gameIdx";
 import useWebSocket, { ReadyState } from "react-use-websocket";
+
 import Layout from "layouts/Layout";
 import { toast } from "react-toastify";
 import PrivateRoute from "components/privateRoute/PrivateRoute";
@@ -13,7 +16,7 @@ import Statistics from "components/statistics/Statistics";
 import HomeTab from "components/homeTab/HomeTab";
 import GameBoard from "components/gameBoard/GameBoard";
 import { reqWsStartApp } from "helpers/requestWs";
-import { socketUrl } from "redux/testURL";
+
 
 const LoginPage = React.lazy(() => import("views/loginPage/LoginPage"));
 const RegisterPage = React.lazy(() => import("views/registerPage/RegisterPage"));
@@ -61,7 +64,25 @@ function App() {
                     setCurentG(true);
                     toast.info(`We find curent game!${mesRes.idGame}`);
                     return;
+                }   
+                // отмена игры
+                if (mesRes.message === "Game cancelled" ) {
+                  toast.info(`${mesRes.user.name} cancelled the game time control ${mesRes.timeControl}`);
+                    dispatch(setActiveGameIdx(""));
+                    dispatch(setUserInGame(""));
+                    return;
                 }
+                if (mesRes.joining) toast.info(mesRes.joining);
+                if (mesRes.event === "startGame") {
+                    toast.info(`${mesRes.user.name} choose the game time control ${mesRes.timeControl}`);
+                    dispatch(setActiveGameIdx(mesRes.idx));
+                    dispatch(setUserInGame(mesRes.user.name));
+                }
+                // if (mesRes.event === "stopGame") {
+                //     toast.info(`${mesRes.user.name} cancelled the game time control ${mesRes.timeControl}`);
+                //     dispatch(setActiveGameIdx(""));
+                //     dispatch(setUserInGame(""));
+                // }
                 // если нет текущей игры ничего не происходит
                 console.log("no find curent game...");
             }
